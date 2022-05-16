@@ -104,7 +104,7 @@ class APIController extends Controller
         // verifica se existe algum cliente (> 0)
         if($clientes->count() > 0){
             // retorna os clientes
-            return response($clientes);
+            return response()->json($clientes);
         // verifica se não existe nenhum cliente
         }else{
             // printa uma mensagem de erro
@@ -128,23 +128,23 @@ class APIController extends Controller
                      // pega a venda com este id, pelo ano se form especificado, ordernado pela venda mais recente primeiro
                     $venda = Venda::where('cliente_id', $id)->whereYear('created_at', '=', $request->ano)->orderBy('created_at', 'DESC')->get();
                     // retorno o cliente específico e as vendas deste cliente
-                    return response(["Cliente: " , $cliente, "Telefone: " ,$telefone, "Endereço: ", $endereco , "Venda: ", $venda]);
+                    return response()->json(["Cliente: " , $cliente, "Venda: ", $venda]);
                     // verifica se existe campo mes
                 }else if($request->has('mes')){
                      // pega a venda com este id, pelo ano se form especificado, ordernado pela venda mais recente primeiro
                     $venda = Venda::where('cliente_id', $id)->whereMonth('created_at', '=', $request->mes)->orderBy('created_at', 'DESC')->get();
                     // retorno o cliente específico e as vendas deste cliente
-                    return response(["Cliente: " , $cliente, "Telefone: " ,$telefone, "Endereço: ", $endereco , "Venda: ", $venda]);
+                    return response()->json(["Cliente: " , $cliente, "Venda: ", $venda]);
                 }else{
                     print("Não existe vendas nesta data");
                 }
                 // pega a venda com este id, ordernado pela venda mais recente primeiro
                 $venda = Venda::where('cliente_id', $id)->orderBy('created_at', 'DESC')->get();
                 // retorno o cliente específico e as vendas deste cliente
-                return response(["Cliente: " , $cliente, "Telefone: " ,$telefone, "Endereço: ", $endereco , "Venda: ", $venda]);
+                return response()->json(["Cliente: " , $cliente, "Venda: ", $venda]);
                 }else{
                     // retorno o cliente específico e printa uma mensagem que não ha vendas deste cliente
-                    return response(["Cliente: " , $cliente , "Telefone: " ,$telefone, "Endereço: ", $endereco , "não existe venda"]);
+                    return response()->json(["Cliente: " , $cliente , "não existe venda"]);
                 }
         // se não existe
         }else{
@@ -208,7 +208,7 @@ class APIController extends Controller
         // verifica se existe algum produto (> 0)
         if($produtos->count() > 0){
             // retorna os produtos
-            return response($produtos);
+            return response()->json($produtos);
         // verifica se não existe nenhum produto
         }else{
             // printa uma mensagem de erro
@@ -222,7 +222,7 @@ class APIController extends Controller
         // pega o produto com este id
         $produto = Produto::find($id);
         // retorno o produto específico
-        return response($produto);
+        return response()->json($produto);
         // se não existe
         }else{
             // printa uma mensagem de erro
